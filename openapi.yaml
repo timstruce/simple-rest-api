@@ -1,0 +1,164 @@
+swagger: "2.0"
+info:
+  description: "Cities REST api"
+  version: "1.0.0"
+  title: "Cities"
+  contact:
+    email: "timotea.strucelj@gmail.com"
+host: "localhost:8080"
+paths:
+  /cities:
+    get:
+      summary: Get all cities
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              cities:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - zipCode
+                    - name
+                    - population
+                  properties:
+                    id:
+                      type: number
+                      description: Primary key of city object
+                      example: 1
+                    zipCode:
+                      type: number
+                      description: Zip code of city object
+                      example: 10000
+                    name:
+                      type: string
+                      description: City name
+                      example: Zagreb
+                    population:
+                      type: number
+                      description: Number of people living in city
+                      example: 800000
+        "400":
+          description: Bad request
+        "500":
+          description: Server error  
+    post: 
+      summary: Add new city
+      parameters:
+      - name: city
+        in: body
+        description: The city to create.
+        schema:
+          type: object
+          required:
+            - zipCode
+            - name
+            - population
+          properties:
+            zipCode:
+              type: number
+            name:
+              type: string
+            population:
+              type: number
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            type: object
+            required:
+              - id
+              - zipCode
+              - name
+              - population
+        "400":
+          description: Bad request
+        "500":
+          description: Server error 
+  /cities/{id}:  
+    get:
+      summary: Get city by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: number
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            type: object
+            required:
+              - id
+              - zipCode
+              - name
+              - population
+        "400":
+          description: Bad request
+        "500":
+          description: Server error  
+    put: 
+      summary: Update city
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: number
+        - in: body
+          name: city
+          description: The city to create.
+          schema:
+            type: object
+            required:
+              - zipCode
+              - name
+              - population
+            properties:
+              zipCode:
+                type: number
+              name:
+                type: string
+              population:
+                type: number
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            type: object
+            required:
+              - id
+              - zipCode
+              - name
+              - population
+        "400":
+          description: Bad request
+        "500":
+          description: Server error   
+    delete:
+      summary: Delete city
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: number
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Bad request
+        "500":
+          description: Server error 
